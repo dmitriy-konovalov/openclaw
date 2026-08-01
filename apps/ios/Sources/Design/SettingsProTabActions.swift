@@ -1131,6 +1131,16 @@ extension SettingsProTab {
             })
     }
 
+    var talkSystemVoiceSelectionBinding: Binding<String> {
+        Binding(
+            get: { self.talkSystemVoiceSelectionRaw },
+            set: { newValue in
+                let voice = TalkSystemVoiceSelection.resolvedOverride(newValue) ?? ""
+                self.talkSystemVoiceSelectionRaw = voice
+                self.appModel.setTalkSystemVoiceSelection(voice)
+            })
+    }
+
     var talkSpeakerphoneBinding: Binding<Bool> {
         Binding(
             get: { self.talkSpeakerphoneEnabled },
