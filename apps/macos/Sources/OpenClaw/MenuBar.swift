@@ -1,6 +1,7 @@
 import AppKit
 import Darwin
 import Foundation
+import KeyboardShortcuts
 import MenuBarExtraAccess
 import Observation
 import OSLog
@@ -585,6 +586,9 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         MacNodeModeCoordinator.shared.start()
         VoiceWakeGlobalSettingsSync.shared.start()
         QuickChatController.shared.start()
+        KeyboardShortcuts.onKeyUp(for: .toggleTalkMode) {
+            Task { await AppStateStore.shared.setTalkEnabled(!AppStateStore.shared.talkEnabled) }
+        }
         Task { PresenceReporter.shared.start() }
         Task { await HealthStore.shared.refresh(onDemand: true) }
         Task { await PortGuardian.shared.sweep(mode: AppStateStore.shared.connectionMode) }

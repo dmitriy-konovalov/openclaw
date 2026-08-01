@@ -1,5 +1,6 @@
 import AppKit
 import AVFoundation
+import KeyboardShortcuts
 import Observation
 import OpenClawKit
 import Speech
@@ -191,6 +192,13 @@ struct VoiceWakeSettings: View {
                                 Image(systemName: "pause.circle.fill")
                                     .foregroundStyle(.orange)
                             }
+                        }
+
+                        SettingsCardRow(
+                            title: "Talk Mode shortcut",
+                            subtitle: "Global shortcut that starts or stops a full voice conversation.")
+                        {
+                            KeyboardShortcuts.Recorder(for: .toggleTalkMode)
                         }
 
                         SettingsCardToggleRow(
